@@ -11,7 +11,8 @@
     "url": "git+https://github.com/AlbertoLinde/Nuwe-Back-Week-1.git"
   },
   "keywords": [
-    "CLI","GIT"
+    "CLI",
+    "GIT"
   ],
   "bin": {
     "nuwe": "./bin/index.js"
@@ -24,6 +25,7 @@
   "homepage": "https://github.com/AlbertoLinde/Nuwe-Back-Week-1#readme",
   "dependencies": {
     "typescript": "^4.3.5",
+    "xmlhttprequest": "^1.8.0",
     "yargs": "^17.0.1"
   }
 }

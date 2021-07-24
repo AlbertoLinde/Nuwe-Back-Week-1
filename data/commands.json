@@ -1,0 +1,8 @@
+{
+    "commands":[
+        { "shortCommand": "-l", "alias": "--login", "description": "Login with username and password.", "example": "nuwe -l [user] [password]" },
+        { "shortCommand": "-r", "alias": "--register", "description": "Register new user.", "example": "nuwe -r [name] [username] [email] [password]" },
+        { "shortCommand": "-s", "alias": "--submit_repository", "description": "Submit a new repository.", "example": "nuwe -s [github_url]" },
+        { "shortCommand": "-g", "alias": "--github_config", "description": "Set GitHub username and repository url.", "example": "nuwe -g [username] [url]" }
+    ]
+}
