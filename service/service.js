@@ -47,7 +47,7 @@ function setProject(projectInfo) {
  */
 function loginUser(userName, userPassword) {
    database.find({
-      "user.name": userName, "user.password": userPassword
+      "user.username": userName, "user.password": userPassword
    }, function (error, data) {
       if (data.length) {
          console.log(`User ${userName}, logged in successfully!`)
@@ -67,9 +67,6 @@ function registerUser(newUser) {
          "user.username": newUser.username
       }, function (error, data) {
          if (!data.length) {
-
-            console.log(data)
-
             if (utils.checkEmail(newUser.email)) {
                database.insert({ user: newUser });
                console.log(`User ${newUser.name} successfully created.`)
@@ -84,11 +81,11 @@ function registerUser(newUser) {
 };
 
 function setGitHub(userName, url) {
-   console.log(userName)
-   database.update({ "user.username": userName}, { $set: { "user.github.username": userName, "user.github.url": url } }, { multi: true }, function (err, numReplaced) {
-      console.log(err)
-      console.log(numReplaced)
-    })
+   database.update({ "user.username": userName }, { $set: { "user.github.username": userName, "user.github.url": url } }, { multi: true }, function (err, numReplaced) {
+      if (numReplaced > 0) {
+         console.log("GITHub config updated.")
+      }
+   })
 }
 
 

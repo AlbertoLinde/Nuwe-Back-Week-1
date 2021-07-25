@@ -55,7 +55,7 @@ if (yargs.argv.s?.length == 1) {
 
 
 if (yargs.argv.g?.length == 2) {
-      service.setGitHub("saa","pepe")
+      service.setGitHub(yargs.argv.g[0],yargs.argv.g[1])
 } else if (yargs.argv.g) {
       console.log("ERROR: To use [-g, --github_config] it is necessary same username (login).");
       console.log("Example: nuwe -g username github_url");
