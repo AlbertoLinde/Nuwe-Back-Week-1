@@ -64,10 +64,12 @@ function loginUser(userName, userPassword) {
 function registerUser(newUser) {
    if (database.find(
       {
-         user: newUser
+         "user.username": newUser.username
       }, function (error, data) {
          if (!data.length) {
-            console.log(utils.checkEmail(newUser.email))
+
+            console.log(data)
+
             if (utils.checkEmail(newUser.email)) {
                database.insert({ user: newUser });
                console.log(`User ${newUser.name} successfully created.`)
@@ -76,15 +78,24 @@ function registerUser(newUser) {
             console.log("ERROR: Incorrect email.");
             return;
          }
-         console.log("ERROR: User already exists.");
+         console.log("ERROR: User with this username already exists.");
       }
    )) { }
 };
+
+function setGitHub(userName, url) {
+   console.log(userName)
+   database.update({ "user.username": userName}, { $set: { "user.github.username": userName, "user.github.url": url } }, { multi: true }, function (err, numReplaced) {
+      console.log(err)
+      console.log(numReplaced)
+    })
+}
 
 
 
 module.exports = {
    getRepo: getRepo,
    loginUser: loginUser,
-   registerUser: registerUser
+   registerUser: registerUser,
+   setGitHub: setGitHub
 };

@@ -1,9 +1,10 @@
 #! /usr/bin/env node
 const yargs = require("yargs");
 const command = require('./command.js');
-const service = require('./../service/service')
+const service = require('./../service/service');
 
-const User = require("./../model/User.js") 
+const User = require("./../model/User.js");
+const GitHub = require("../model/GitHub.js");
 
 const options = yargs
       .option("l", { alias: "login", describe: "Login with username and password.", type: "array", demandOption: false })
@@ -27,15 +28,15 @@ function getProject(urlFields) {
 if (yargs.argv.l?.length == 2) {
       service.loginUser(yargs.argv.l[0], yargs.argv.l[1]);
 } else if (yargs.argv.l) {
-      console.log("ERROR: To use [-l, --login] it is necessary username and password.")
-      console.log("Example: nuwe -l myusser mypassword")
+      console.log("ERROR: To use [-l, --login] it is necessary username and password.");
+      console.log("Example: nuwe -l myusser mypassword");
 };
 
 if (yargs.argv.r?.length == 4) {
-      service.registerUser(new User(yargs.argv.r[0],yargs.argv.r[1],yargs.argv.r[2],yargs.argv.r[3]))
+      service.registerUser(new User(yargs.argv.r[0], yargs.argv.r[1], yargs.argv.r[2], yargs.argv.r[3], new GitHub()));
 } else if (yargs.argv.r) {
-      console.log("ERROR: To use [-r, --register] it is necessary name, username, email and password.")
-      console.log("Example: nuwe -r myname myusername myemail mypassword")
+      console.log("ERROR: To use [-r, --register] it is necessary name, username, email and password.");
+      console.log("Example: nuwe -r myname myusername myemail mypassword");
 };
 
 if (yargs.argv.s?.length == 1) {
@@ -47,5 +48,15 @@ if (yargs.argv.s?.length == 1) {
             getOwner(urlFields),
             getProject(urlFields)
       );
+} else if (yargs.argv.s) {
+      console.log("ERROR: To use [-s, ---submit_repository] just give the GitHub project link.");
+      console.log("Example: nuwe -s https://github.com/AlbertoLinde/Nuwe-Back-Week-1");
 };
 
+
+if (yargs.argv.g?.length == 2) {
+      service.setGitHub("saa","pepe")
+} else if (yargs.argv.g) {
+      console.log("ERROR: To use [-g, --github_config] it is necessary same username (login).");
+      console.log("Example: nuwe -g username github_url");
+};
