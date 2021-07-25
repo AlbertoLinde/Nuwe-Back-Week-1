@@ -24,8 +24,7 @@ function getRepo(owner, repo) {
 
    xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
-         //database.insert(setProject(xhr.responseText));
-         registerUser("xxx");
+         database.insert(setProject(xhr.responseText));
       } else if (xhr.readyState === 4) {
          console.error(`Code Error: ${xhr.status} | Message: ${JSON.parse(xhr.responseText).message}`)
       }
@@ -48,17 +47,20 @@ function setProject(projectInfo) {
  */
 function loginUser(userName, userPassword) {
    database.find({
-      userId: userName, stack: userPassword
+      "user.name": userName, "user.password": userPassword
    }, function (error, data) {
       if (data.length) {
-         console.log(`${userName} logged in successfully!`)
+         console.log(`User ${userName}, logged in successfully!`)
          return;
-      }
+      };
       console.log(`ERROR: Please, check username and password.`);
    });
 };
 
-
+/**
+ * Register new user on the database, check first if user is already created.
+ * @param newUser 
+ */
 function registerUser(newUser) {
    if (database.find(
       {
@@ -66,6 +68,7 @@ function registerUser(newUser) {
       }, function (error, data) {
          if (!data.length) {
             database.insert({ user: newUser });
+            console.log(`User ${newUser.name} successfully created.`)
             return;
          }
          console.log("ERROR: User already exists.")
@@ -76,5 +79,7 @@ function registerUser(newUser) {
 
 
 module.exports = {
-   getRepo: getRepo
+   getRepo: getRepo, 
+   loginUser: loginUser, 
+   registerUser: registerUser
 };
