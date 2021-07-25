@@ -11,7 +11,7 @@ const options = yargs
       .help(command.commandHelper())
       .argv;
 
-if (yargs.argv.s.length == 1) {
+if (yargs.argv.s?.length == 1) {
 
       let url = yargs.argv.s[0];
       let urlFields = url.substr(url.indexOf(".com") + 5, url.length);

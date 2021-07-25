@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/AlbertoLinde/Nuwe-Back-Week-1#readme",
   "dependencies": {
+    "nedb": "^1.8.0",
     "typescript": "^4.3.5",
     "xmlhttprequest": "^1.8.0",
     "yargs": "^17.0.1"
