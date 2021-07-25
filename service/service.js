@@ -1,7 +1,7 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const Datastore = require('nedb');
-
 const Project = require("./../model/Project.js")
+const utils = require('./../bin/util.js')
 
 const database = new Datastore('database.db');
 database.loadDatabase();
@@ -67,11 +67,16 @@ function registerUser(newUser) {
          user: newUser
       }, function (error, data) {
          if (!data.length) {
-            database.insert({ user: newUser });
-            console.log(`User ${newUser.name} successfully created.`)
+            console.log(utils.checkEmail(newUser.email))
+            if (utils.checkEmail(newUser.email)) {
+               database.insert({ user: newUser });
+               console.log(`User ${newUser.name} successfully created.`)
+               return;
+            }
+            console.log("ERROR: Incorrect email.");
             return;
          }
-         console.log("ERROR: User already exists.")
+         console.log("ERROR: User already exists.");
       }
    )) { }
 };
@@ -79,7 +84,7 @@ function registerUser(newUser) {
 
 
 module.exports = {
-   getRepo: getRepo, 
-   loginUser: loginUser, 
+   getRepo: getRepo,
+   loginUser: loginUser,
    registerUser: registerUser
 };
