@@ -2,10 +2,13 @@ function checkEmail(email){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function checkNumber(numberToCheck) {
+    return /^\d+$/.test(numberToCheck);
+}
+
 function checkHoursAndMinutes(time) {
     
     let timeAndMinutes = time.split(":");
-    console.log(timeAndMinutes)
 
     if(!checkNumber(timeAndMinutes[0]) || !checkNumber(timeAndMinutes[1])){
         console.error("Only accept numbers");
@@ -27,10 +30,6 @@ function checkHoursAndMinutes(time) {
         return false;
     }
     return true;
-}
-
-function checkNumber(numberToCheck) {
-    return /^\d+$/.test(numberToCheck);
 }
 
 module.exports = {

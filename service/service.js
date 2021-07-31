@@ -88,7 +88,11 @@ function setGitHub(userName, url) {
    });
 }
 
-
+/**
+ * Start the interval to send the rest message to the user.
+ * @param finishWorkTime 
+ * @param restTime Minutes to send rest message
+ */
 function setWorkAndRestTimer(finishWorkTime, restTime) {
    if (utils.checkHoursAndMinutes(finishWorkTime)) {
       timmer = setInterval(() => {
@@ -99,7 +103,10 @@ function setWorkAndRestTimer(finishWorkTime, restTime) {
    }
 }
 
-// This function start the timeout and clear interval.
+/**
+ * Check when need to close the interval calls.
+ * @param milisecondsToFinish Miliseconds from current time to finish time
+ */
 function finishWork(milisecondsToFinish) {
    setTimeout(() => {
       console.log("You finish the work for today.")
