@@ -85,14 +85,37 @@ function setGitHub(userName, url) {
       if (numReplaced > 0) {
          console.log("GITHub config updated.")
       }
-   })
+   });
 }
 
 
+function setWorkAndRestTimer(finishWorkTime, restTime) {
+   if (utils.checkHoursAndMinutes(finishWorkTime)) {
+      timmer = setInterval(() => {
+         console.log(`[${restTime}] Mins done - Break Time!`);
+      }, restTime * 10000);
+      let milisecondsToFinish = timeToMiliseconds(finishWorkTime) - timeToMiliseconds((new Date()).toTimeString().substr(0, 5));
+      finishWork(milisecondsToFinish);
+   }
+}
+
+// This function start the timeout and clear interval.
+function finishWork(milisecondsToFinish) {
+   setTimeout(() => {
+      console.log("You finish the work for today.")
+      clearInterval(timmer);
+   }, milisecondsToFinish);
+}
+
+function timeToMiliseconds(finishWorkTime) {
+   let hourAndMinutes = finishWorkTime.split(":");
+   return (hourAndMinutes[0] * (60000 * 60)) + (hourAndMinutes[1] * 60000);
+}
 
 module.exports = {
    getRepo: getRepo,
    loginUser: loginUser,
    registerUser: registerUser,
-   setGitHub: setGitHub
+   setGitHub: setGitHub,
+   setWorkAndRestTimer: setWorkAndRestTimer
 };
